@@ -6,7 +6,6 @@ import {
   RotateCcw, ServerCog, ShieldCheck, TriangleAlert, XCircle, Zap,
 } from "lucide-react";
 import { MetaPixelScript } from "@/components/MetaPixelScript";
-import { MetaPixelViewContent } from "@/components/MetaPixelViewContent";
 import { SalesPageTracker, SalesViewContentTracker } from "@/components/SalesPageTracker";
 import { MobileStickyCTA, SectionViewTracker, TrackedAccordion, TrackedCheckoutButton } from "@/components/course-completo/interactive";
 import { projectLessons, projectTracks, rabbitMqCurriculum } from "./rabbitmq-course-data";
@@ -56,7 +55,6 @@ export function RabbitMqCourseLanding({ checkoutUrl, metaPixelId, youtubeVideoId
   const offerAvailable = /^https?:\/\//.test(checkoutUrl);
   return <main className="min-h-screen overflow-hidden bg-[#07090d] text-white selection:bg-[#f56b1b]/40">
     <MetaPixelScript pixelId={metaPixelId} />
-    <MetaPixelViewContent data={eventData} />
     <SalesPageTracker pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} metadata={{ offerPrice: price, currency: "BRL", offerName: eventData.content_name }} />
     <SalesViewContentTracker pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} currency="BRL" value={price} metadata={{ contentName: eventData.content_name, contentType: "course" }} />
     <SectionViewTracker selectorId="projeto" pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} eventName="project_view" />

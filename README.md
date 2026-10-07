@@ -4,6 +4,7 @@ Aplicação independente para as landing pages, analytics interno e recebimento 
 
 ## Rotas públicas
 
+- `/cursos`
 - `/vibecode`
 - `/fundamentos-ia`
 - `/curso-arquitetura-software`
@@ -28,6 +29,10 @@ Nenhuma credencial deve ser salva no GitHub. Copie `.env.example` somente como r
 | `ANALYTICS_IP_SALT` | Sim | Segredo diferente usado para anonimizar endereços IP |
 | `HOTMART_WEBHOOK_TOKEN` | Sim para vendas | `hottok` informado pela Hotmart |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Sim | ID público do Meta Pixel |
+| `META_CAPI_TOKEN` | Sim para CAPI | Token secreto da Conversions API, usado somente no servidor |
+| `META_GRAPH_API_VERSION` | Não | Versão da Graph API; padrão `v26.0` |
+| `META_CAPI_TEST_EVENT_CODE` | Não | Código temporário da tela Testar eventos da Meta |
+| `PUBLIC_SITE_URL` | Não | Origem pública; padrão `https://plugandoia.cloud` |
 | `NEXT_PUBLIC_VIBECODE_CHECKOUT_URL` | Sim | Checkout do Vibe Coding |
 | `NEXT_PUBLIC_FORMACAO_COMPLETA_CHECKOUT_URL` | Sim | Checkout da formação completa |
 | `NEXT_PUBLIC_RABBITMQ_CHECKOUT_URL` | Sim | Checkout do RabbitMQ |
@@ -47,9 +52,9 @@ Gere os dois segredos separadamente. Exemplo em PowerShell:
 1. Crie um PostgreSQL exclusivo e copie sua URL interna para `DATABASE_URL`.
 2. Crie um App chamado `landpages` usando este repositório e o `Dockerfile` da raiz.
 3. Faça primeiro o deploy usando apenas o domínio temporário do EasyPanel.
-4. Teste as seis páginas, `/landing-admin` e um webhook de teste da Hotmart.
+4. Teste as sete páginas, `/landing-admin` e um webhook de teste da Hotmart.
 5. Adicione ao novo serviço as rotas abaixo no host `plugandoia.cloud`:
-   - cada uma das seis páginas públicas;
+   - cada uma das sete páginas públicas;
    - `/landing-admin`;
    - `/landing-api`;
    - `/landing-assets`.

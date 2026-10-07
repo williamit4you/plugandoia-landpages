@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Bot, BrainCircuit, Check, CheckCircle2, Code2, Infinity, Layers3, MessageSquareMore, RefreshCw, Rocket, ShieldCheck, Sparkles, Workflow, Zap } from "lucide-react";
 import { MetaPixelScript } from "@/components/MetaPixelScript";
-import { MetaPixelViewContent } from "@/components/MetaPixelViewContent";
 import { SalesPageTracker, SalesViewContentTracker } from "@/components/SalesPageTracker";
 import { MobileStickyCTA, SectionViewTracker, TrackedAccordion, TrackedCheckoutButton } from "@/components/course-completo/interactive";
 
@@ -35,7 +34,7 @@ export function FormacaoCompletaLanding({ checkoutUrl, metaPixelId }: Props) {
   }
 
   return <main className="min-h-screen overflow-hidden bg-[#060913] text-white">
-    <MetaPixelScript pixelId={metaPixelId} /><MetaPixelViewContent data={eventData} />
+    <MetaPixelScript pixelId={metaPixelId} />
     <SalesPageTracker pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} metadata={{ offerPrice: PRICE, regularPrice: REGULAR_PRICE, currency: "BRL", offerName: "Formação Completa Plugando IA" }} />
     <SalesViewContentTracker pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} currency="BRL" value={PRICE} metadata={{ contentName: "Formação Completa Plugando IA", contentType: "course_bundle" }} />
     <SectionViewTracker selectorId="cursos" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="courses_view" /><SectionViewTracker selectorId="oferta" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="offer_view" />

@@ -6,7 +6,6 @@ import {
   ShieldCheck, Sparkles, Terminal, WandSparkles, Workflow,
 } from "lucide-react";
 import { MetaPixelScript } from "@/components/MetaPixelScript";
-import { MetaPixelViewContent } from "@/components/MetaPixelViewContent";
 import { SalesPageTracker, SalesViewContentTracker } from "@/components/SalesPageTracker";
 import { MobileStickyCTA, SectionViewTracker, TrackedAccordion, TrackedCheckoutButton } from "@/components/course-completo/interactive";
 
@@ -56,7 +55,7 @@ export function VibeCodeLanding({ checkoutUrl, metaPixelId }: Props) {
   }
 
   return <main className="min-h-screen overflow-hidden bg-[#fbfaf7] text-[#171329] selection:bg-violet-200">
-    <MetaPixelScript pixelId={metaPixelId} /><MetaPixelViewContent data={eventData} />
+    <MetaPixelScript pixelId={metaPixelId} />
     <SalesPageTracker pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} metadata={{ offerPrice: PRICE, currency: "BRL", offerName: "Vibe Coding para Leigos" }} />
     <SalesViewContentTracker pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} currency="BRL" value={PRICE} metadata={{ contentName: "Vibe Coding para Leigos", contentType: "course" }} />
     <SectionViewTracker selectorId="metodo" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="method_view" /><SectionViewTracker selectorId="oferta" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="offer_view" />

@@ -1,6 +1,7 @@
 import { randomUUID, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sendMetaCapiEvent } from "@/lib/metaCapi";
 import { number, text } from "@/lib/requestAnalytics";
 
 export const runtime = "nodejs";
@@ -103,6 +104,30 @@ export async function POST(request: NextRequest) {
           text(tracking.visitor_id, 160), text(price.currency_value || price.currency, 20),
           number(price.value || purchase.value), transactionId, JSON.stringify({ provider: "hotmart", eventName })],
       );
+    }
+
+    if (approved(eventName, status || "")) {
+      const buyerName = text(buyer.name, 255) || "";
+      const buyerNameParts = buyerName.trim().split(/\s+/).filter(Boolean);
+      const publicSiteUrl = (process.env.PUBLIC_SITE_URL || "https://plugandoia.cloud").replace(/\/$/, "");
+      const approvedAt = dateOrNull(purchase.approved_date || purchase.confirmation_purchase_date || data.confirmation_purchase_date);
+      await sendMetaCapiEvent({
+        eventName: "Purchase",
+        eventId: `hotmart_${transactionId || providerEventId}`,
+        eventSourceUrl: pageKey ? `${publicSiteUrl}/${pageKey.replace(/^\//, "")}` : publicSiteUrl,
+        eventTime: approvedAt ? Math.floor(approvedAt.getTime() / 1000) : undefined,
+        visitorId: text(tracking.visitor_id, 160) || sessionId,
+        email: text(buyer.email, 320),
+        phone: text(buyer.phone || buyer.phone_number, 100),
+        firstName: buyerNameParts[0],
+        lastName: buyerNameParts.length > 1 ? buyerNameParts[buyerNameParts.length - 1] : null,
+        currency: text(price.currency_value || price.currency || purchase.currency, 20),
+        value: number(price.value || purchase.price_value || purchase.value),
+        contentId: text(product.id || product.ucode, 255),
+        contentName: text(product.name, 500),
+        contentType: "product",
+        orderId: transactionId,
+      });
     }
 
     return NextResponse.json({ ok: true });

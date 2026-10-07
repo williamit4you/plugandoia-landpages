@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Check, CheckCircle2, Clock3, ShieldCheck } from "lucide-react";
 import { MetaPixelScript } from "@/components/MetaPixelScript";
-import { MetaPixelViewContent } from "@/components/MetaPixelViewContent";
 import { SalesPageTracker, SalesViewContentTracker } from "@/components/SalesPageTracker";
 import { MobileStickyCTA, SectionViewTracker, TrackedAccordion, TrackedCheckoutButton } from "@/components/course-completo/interactive";
 
@@ -108,7 +107,6 @@ export function CleanCourseLanding(props: CleanCourseLandingProps) {
   return (
     <main className="min-h-screen bg-white text-slate-950">
       <MetaPixelScript pixelId={props.metaPixelId} />
-      <MetaPixelViewContent data={eventData} />
       <SalesPageTracker pageKey={props.pageKey} pagePath={props.pagePath} pageTitle={props.pageTitle} metadata={{ offerPrice: props.price ?? null, currency: "BRL", offerName: props.name }} />
       <SalesViewContentTracker pageKey={props.pageKey} pagePath={props.pagePath} pageTitle={props.pageTitle} currency="BRL" value={props.price} metadata={{ contentName: props.name, contentType: "course" }} />
       <SectionViewTracker selectorId="conteudo" pageKey={props.pageKey} pagePath={props.pagePath} pageTitle={props.pageTitle} eventName="curriculum_view" />

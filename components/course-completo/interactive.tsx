@@ -3,7 +3,7 @@
 import { MouseEvent, ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { CTAButton } from "@/components/landing/cta-button";
 import { MetaPixelEventData, initiateCheckout } from "@/lib/metaPixel";
-import { SALES_PAGE_EVENT_TYPES, getSalesSessionId, getSalesVisitorId, trackSalesEvent } from "@/lib/salesAnalytics";
+import { createSalesEventId, SALES_PAGE_EVENT_TYPES, getSalesSessionId, getSalesVisitorId, trackSalesEvent } from "@/lib/salesAnalytics";
 
 function pad(value: number) {
   return String(Math.max(0, value)).padStart(2, "0");
@@ -146,7 +146,8 @@ export function TrackedCheckoutButton({
     event.preventDefault();
 
     const trackedHref = buildTrackedHref(href, pageKey);
-    initiateCheckout(eventData);
+    const eventId = createSalesEventId("checkout");
+    initiateCheckout(eventData, eventId);
 
     await Promise.all([
       trackCustomEvent(pageKey, pagePath, pageTitle, customEvent, {
@@ -158,6 +159,7 @@ export function TrackedCheckoutButton({
         pagePath,
         pageTitle,
         eventType: SALES_PAGE_EVENT_TYPES.INITIATE_CHECKOUT,
+        eventId,
         checkoutUrl: trackedHref,
         value,
         currency,

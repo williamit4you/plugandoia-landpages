@@ -20,6 +20,7 @@ export type SalesPageTrackPayload = {
   currency?: string;
   value?: number;
   orderId?: string;
+  eventId?: string;
   metadata?: Record<string, unknown>;
 };
 
@@ -76,6 +77,20 @@ function randomId(prefix: string) {
   const win = safeWindow();
   const value = win?.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   return `${prefix}_${value}`;
+}
+
+export function createSalesEventId(prefix = "lp") {
+  return randomId(prefix);
+}
+
+function readCookie(name: string) {
+  try {
+    const prefix = `${name}=`;
+    const value = document.cookie.split("; ").find((item) => item.startsWith(prefix));
+    return value ? decodeURIComponent(value.slice(prefix.length)) : null;
+  } catch {
+    return null;
+  }
 }
 
 function persistCommerceCookie(name: string, value: string) {
@@ -166,8 +181,11 @@ export async function trackSalesEvent(payload: SalesPageTrackPayload) {
 
   const body = {
     ...payload,
+    eventId: payload.eventId ?? createSalesEventId(payload.eventType.toLowerCase()),
     sessionId,
     visitorId: payload.visitorId ?? getSalesVisitorId(),
+    fbp: readCookie("_fbp"),
+    fbc: readCookie("_fbc"),
     ...getContextFromBrowser(),
   };
 

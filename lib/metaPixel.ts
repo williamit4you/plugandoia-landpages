@@ -1,36 +1,45 @@
 export type MetaPixelEventData = Record<string, unknown>;
 
-function track(eventName: string, data?: MetaPixelEventData) {
-  if (typeof window === "undefined" || typeof window.fbq !== "function") {
+function track(eventName: string, data?: MetaPixelEventData, eventId?: string) {
+  if (typeof window === "undefined") {
     return;
   }
 
-  if (data) {
-    window.fbq("track", eventName, data);
-    return;
-  }
+  const dispatch = (attempt = 0) => {
+    if (typeof window.fbq !== "function") {
+      if (attempt < 20) window.setTimeout(() => dispatch(attempt + 1), 100);
+      return;
+    }
 
-  window.fbq("track", eventName);
+    if (data || eventId) {
+      window.fbq("track", eventName, data || {}, eventId ? { eventID: eventId } : undefined);
+      return;
+    }
+
+    window.fbq("track", eventName);
+  };
+
+  dispatch();
 }
 
-export function pageView() {
-  track("PageView");
+export function pageView(eventId?: string) {
+  track("PageView", undefined, eventId);
 }
 
-export function viewContent(data?: MetaPixelEventData) {
-  track("ViewContent", data);
+export function viewContent(data?: MetaPixelEventData, eventId?: string) {
+  track("ViewContent", data, eventId);
 }
 
-export function initiateCheckout(data?: MetaPixelEventData) {
-  track("InitiateCheckout", data);
+export function initiateCheckout(data?: MetaPixelEventData, eventId?: string) {
+  track("InitiateCheckout", data, eventId);
 }
 
 export function purchase(data?: MetaPixelEventData) {
   track("Purchase", data);
 }
 
-export function lead(data?: MetaPixelEventData) {
-  track("Lead", data);
+export function lead(data?: MetaPixelEventData, eventId?: string) {
+  track("Lead", data, eventId);
 }
 
 export function completeRegistration(data?: MetaPixelEventData) {

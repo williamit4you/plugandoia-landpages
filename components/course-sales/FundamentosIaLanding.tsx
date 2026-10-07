@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowDown, ArrowRight, Bot, BrainCircuit, BriefcaseBusiness, Building2, Check, CheckCircle2, ChevronRight, Code2, GraduationCap, Lightbulb, MessageSquareText, Play, Rocket, Sparkles, Store, Wrench, X, Zap } from "lucide-react";
 import { MetaPixelScript } from "@/components/MetaPixelScript";
-import { MetaPixelViewContent } from "@/components/MetaPixelViewContent";
 import { SalesPageTracker, SalesViewContentTracker } from "@/components/SalesPageTracker";
 import { MobileStickyCTA, SectionViewTracker, TrackedAccordion, TrackedCheckoutButton } from "@/components/course-completo/interactive";
 
@@ -68,7 +67,7 @@ export function FundamentosIaLanding({ metaPixelId }: { metaPixelId?: string }) 
   const embedUrl = getYoutubeEmbedUrl(SALES_VIDEO_URL);
   const checkoutReady = CHECKOUT_URL.startsWith("http");
   return <main className="min-h-screen overflow-hidden bg-[#07090d] pb-24 text-white md:pb-0">
-    <MetaPixelScript pixelId={metaPixelId} /><MetaPixelViewContent data={eventData} />
+    <MetaPixelScript pixelId={metaPixelId} />
     <SalesPageTracker pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} metadata={{ offerPrice: PRICE, currency: "BRL", offerName: COURSE_NAME }} />
     <SalesViewContentTracker pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} currency="BRL" value={PRICE} metadata={{ contentName: COURSE_NAME, contentType: "course" }} />
     <SectionViewTracker selectorId="conteudo" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="curriculum_view" /><SectionViewTracker selectorId="projeto" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="project_view" /><SectionViewTracker selectorId="oferta" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="offer_view" />

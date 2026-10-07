@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Code2 } from "lucide-react";
 import { SalesPageTracker } from "@/components/SalesPageTracker";
+import { MetaPixelScript } from "@/components/MetaPixelScript";
 import { courseCatalog } from "@/lib/courseCatalog";
+import { resolveSalesPageMetaPixelId } from "@/lib/salesPagePixel";
 
 export const metadata: Metadata = {
   title: "Cursos de programação, arquitetura e IA | Plugando IA",
@@ -14,9 +16,11 @@ function formatPrice(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-export default function CursosPage() {
+export default async function CursosPage() {
+  const metaPixelId = await resolveSalesPageMetaPixelId("cursos");
   return (
     <main className="min-h-screen bg-white text-slate-950">
+      <MetaPixelScript pixelId={metaPixelId || undefined} />
       <SalesPageTracker pageKey="cursos" pagePath="/cursos" pageTitle="Cursos Plugando IA" />
       <header className="border-b border-slate-200">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
