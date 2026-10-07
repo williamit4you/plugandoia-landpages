@@ -8,6 +8,10 @@ function sameValue(left: string, right: string) {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+function redirect(location: string) {
+  return new NextResponse(null, { status: 303, headers: { location } });
+}
+
 export async function POST(request: NextRequest) {
   const form = await request.formData();
   const email = String(form.get("email") || "").trim().toLowerCase();
@@ -17,13 +21,11 @@ export async function POST(request: NextRequest) {
   const secret = process.env.ADMIN_SESSION_SECRET || "";
 
   if (!expectedEmail || !expectedPassword || !secret || !sameValue(email, expectedEmail) || !sameValue(password, expectedPassword)) {
-    const failed = new URL("/landing-admin/login", request.url);
-    failed.searchParams.set("error", "1");
-    return NextResponse.redirect(failed, 303);
+    return redirect("/landing-admin/login?error=1");
   }
 
   const destination = String(form.get("next") || "/landing-admin");
-  const response = NextResponse.redirect(new URL(destination.startsWith("/") ? destination : "/landing-admin", request.url), 303);
+  const response = redirect(destination.startsWith("/") ? destination : "/landing-admin");
   response.cookies.set("landpages_admin", await createAdminSession(secret), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
