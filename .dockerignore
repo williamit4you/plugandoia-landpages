@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.env*
+*.log
+coverage
+.turbo
+.vercel
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite*
+*.db
+*.dump
+.DS_Store
+Thumbs.db
