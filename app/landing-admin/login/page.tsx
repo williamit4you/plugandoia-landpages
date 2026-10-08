@@ -7,7 +7,8 @@ export default function AdminLogin({ searchParams }: { searchParams: { error?: s
         <div className="admin-eyebrow">Plugando IA</div>
         <h1>Acessar analytics</h1>
         <p>Entre para consultar acessos, cliques, campanhas e vendas das landing pages.</p>
-        {searchParams.error ? <div className="admin-error">E-mail ou senha inválidos.</div> : null}
+        {searchParams.error === "config" ? <div className="admin-error">Configuração incompleta no servidor. Verifique ADMIN_EMAIL, ADMIN_PASSWORD e ADMIN_SESSION_SECRET.</div> : null}
+        {searchParams.error === "1" ? <div className="admin-error">E-mail ou senha inválidos.</div> : null}
         <input type="hidden" name="next" value={searchParams.next || "/landing-admin"} />
         <label>
           E-mail
