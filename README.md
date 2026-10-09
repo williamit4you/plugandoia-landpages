@@ -5,6 +5,7 @@ Aplicação independente para as landing pages, analytics interno e recebimento 
 ## Rotas públicas
 
 - `/cursos`
+- `/curso-completo` (redireciona permanentemente para `/cursos`)
 - `/vibecode`
 - `/fundamentos-ia`
 - `/curso-arquitetura-software`
