@@ -12,6 +12,7 @@ Aplicação independente para as landing pages, analytics interno e recebimento 
 - `/curso-rabbitmq`
 - `/curso-saas`
 - `/formacao-completa`
+- `/linkedin-dev-do-zero`
 - `/landing-admin`
 - `/landing-api/events`
 - `/landing-api/webhooks/hotmart`
@@ -41,6 +42,7 @@ Nenhuma credencial deve ser salva no GitHub. Copie `.env.example` somente como r
 | `NEXT_PUBLIC_SAAS_PRICE` | Sim | Preço numérico do curso SaaS |
 | `NEXT_PUBLIC_SAAS_CHECKOUT_URL` | Sim | Checkout do curso SaaS |
 | `NEXT_PUBLIC_ARCHITECTURE_CHECKOUT_URL` | Sim | Checkout de Arquitetura |
+| `NEXT_PUBLIC_P011_CHECKOUT_URL` | Não, até o lançamento | Checkout do kit LinkedIn Dev do Zero; vazio mantém os CTAs em modo de preparação |
 
 Gere os dois segredos separadamente. Exemplo em PowerShell:
 

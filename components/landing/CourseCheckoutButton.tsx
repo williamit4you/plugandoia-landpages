@@ -12,6 +12,8 @@ type CourseCheckoutButtonProps = {
   eventData?: MetaPixelEventData;
   pageKey?: string;
   pagePath?: string;
+  className?: string;
+  hideGlow?: boolean;
 };
 
 export function CourseCheckoutButton({
@@ -21,6 +23,8 @@ export function CourseCheckoutButton({
   eventData,
   pageKey = "curso-fundamentos-ia",
   pagePath = "/curso-fundamentos-ia",
+  className,
+  hideGlow = false,
 }: CourseCheckoutButtonProps) {
   async function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
@@ -46,5 +50,5 @@ export function CourseCheckoutButton({
     }, 150);
   }
 
-  return <CTAButton href={href} label={label} onClick={handleClick} variant={variant} />;
+  return <CTAButton href={href} label={label} onClick={handleClick} variant={variant} className={className} hideGlow={hideGlow} />;
 }
