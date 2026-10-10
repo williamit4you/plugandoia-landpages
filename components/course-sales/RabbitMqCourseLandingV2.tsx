@@ -34,6 +34,24 @@ const benefits = [
   { icon: Activity, title: "Prometheus e Grafana", description: "Acompanhe filas e identifique acúmulo de mensagens usando métricas e dashboards." },
 ];
 
+const testimonials = [
+  {
+    name: "João Gabriel",
+    image: "/images/rabbitmq/depoimentos/joao-gabriel.png",
+    text: "O curso explica RabbitMQ de uma forma muito clara, começando pelos conceitos básicos e avançando gradualmente. Gostei principalmente dos exemplos com C# e .NET, que ajudam bastante a entender como utilizar mensageria na prática.",
+  },
+  {
+    name: "Amanda Silva",
+    image: "/images/rabbitmq/depoimentos/amanda-silva.png",
+    text: "Mesmo trabalhando com Java, consegui acompanhar e entender muito bem o curso. A didática é clara, o conteúdo é bem explicado e os exemplos práticos ajudam bastante a compreender como o RabbitMQ funciona e conseguir replicar em Java.",
+  },
+  {
+    name: "Lucas Simão",
+    image: "/images/rabbitmq/depoimentos/lucas-simao.png",
+    text: "Eu já conhecia o básico de RabbitMQ, mas queria entender melhor Retry, Dead Letter Queue, ACK e idempotência. O curso aborda esses conceitos com exemplos práticos e ainda apresenta monitoramento com Prometheus e Grafana.",
+  },
+];
+
 const faq = [
   ["Preciso saber RabbitMQ?", "Não. O curso ensina RabbitMQ desde os fundamentos e explica os conceitos antes de avançar para os laboratórios e o projeto."],
   ["Qual conhecimento de C#/.NET preciso ter?", "É recomendado conhecer o básico de programação, C# e .NET. O curso começa do zero em RabbitMQ, mas não é uma formação de programação desde o início."],
@@ -41,14 +59,17 @@ const faq = [
   ["O pagamento do projeto usa uma integração financeira real?", "Não. O processamento de pagamento faz parte da simulação do fluxo do e-commerce para estudar mensagens de aprovação, recusa, retry, cancelamento e compensação de estoque."],
   ["Quantas aulas compõem o conteúdo?", `A formação principal tem ${mainLessonCount} aulas. O projeto de e-commerce tem ${projectLessonCount} aulas, além de 1 recado, apresentados separadamente para evitar contagem duplicada.`],
   ["O projeto mostra o que acontece quando há falhas?", "Sim. O fluxo cobre falta de estoque, pagamento recusado, liberação de reserva, novas tentativas com delay, limite de tentativas e DLQ."],
+  ["Por quanto tempo tenho acesso?", `${rabbitMqOffer.accessDurationLabel}, incluindo ${rabbitMqOffer.updatesLabel.toLocaleLowerCase("pt-BR")}.`],
+  ["Como recebo o acesso?", `${rabbitMqOffer.deliveryLabel}. Confira também a caixa de spam e use no checkout um e-mail ao qual você tenha acesso.`],
+  ["Qual é a garantia?", `Você tem ${rabbitMqOffer.guaranteeDays} dias de garantia para conhecer o curso. Dentro desse prazo, a solicitação deve ser feita pelos canais da Hotmart.`],
 ];
 
 function SectionIntro({ eyebrow, title, description, center = false }: { eyebrow: string; title: string; description: string; center?: boolean }) {
   return <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}><p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff8a3d]">{eyebrow}</p><h2 className="mt-4 text-balance text-3xl font-bold tracking-[-0.035em] text-white md:text-5xl">{title}</h2><p className="mt-5 text-base leading-8 text-slate-400 md:text-lg">{description}</p></div>;
 }
 
-function CheckoutButton({ href, label, className = "" }: { href: string; label: string; className?: string }) {
-  return <TrackedCheckoutButton href={href} label={label} pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} value={price} currency="BRL" customEvent="rabbitmq_checkout_click" eventData={eventData} hideGlow className={`min-h-12 !rounded-xl !bg-none !bg-[#f56b1b] !px-6 !py-4 !font-extrabold !text-white shadow-[0_16px_50px_rgba(245,107,27,.22)] hover:!bg-[#ff7d2d] focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-offset-2 focus-visible:!outline-white ${className}`} />;
+function CheckoutButton({ href, className = "" }: { href: string; label?: string; className?: string }) {
+  return <TrackedCheckoutButton href={href} label="Quero dominar RabbitMQ por R$ 79,90" pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} value={price} currency="BRL" customEvent="rabbitmq_checkout_click" eventData={eventData} hideGlow className={`min-h-12 !rounded-xl !bg-none !bg-[#f56b1b] !px-6 !py-4 !font-extrabold !text-white shadow-[0_16px_50px_rgba(245,107,27,.22)] hover:!bg-[#ff7d2d] focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-offset-2 focus-visible:!outline-white ${className}`} />;
 }
 
 function FlowStep({ children, accent = false }: { children: React.ReactNode; accent?: boolean }) {
@@ -68,7 +89,7 @@ export function RabbitMqCourseLandingV2({ checkoutUrl, metaPixelId, youtubeVideo
     <SectionViewTracker selectorId="conteudo" pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} eventName="curriculum_view" />
     <SectionViewTracker selectorId="oferta" pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} eventName="offer_view" />
 
-    <div className="border-b border-[#f56b1b]/15 bg-[#f56b1b]/10 px-4 py-2.5 text-center text-xs font-semibold text-[#ffc29b] sm:text-sm">{rabbitMqOffer.badge} — {rabbitMqOffer.installmentLabel} ou {rabbitMqOffer.priceLabel} à vista</div>
+    <div className="border-b border-[#f56b1b]/15 bg-[#f56b1b]/10 px-4 py-2.5 text-center text-xs font-semibold text-[#ffc29b] sm:text-sm">{rabbitMqOffer.badge} até {rabbitMqOffer.endsAtLabel} — de {rabbitMqOffer.originalPriceLabel} por {rabbitMqOffer.installmentLabel} ou {rabbitMqOffer.priceLabel} à vista</div>
     <header className="relative z-30 border-b border-white/[0.07] bg-[#07090d]/90 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8"><Link href="/cursos" className="flex items-center gap-2 font-extrabold tracking-tight focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff8a3d]"><span className="grid h-8 w-8 place-items-center rounded-lg bg-[#f56b1b] text-xs">PI</span>Plugando IA</Link><nav aria-label="Navegação da página" className="flex items-center gap-5 text-sm font-semibold text-slate-400"><a href="#projeto" className="hidden hover:text-white focus-visible:text-white sm:block">Projeto</a><a href="#conteudo" className="hover:text-white focus-visible:text-white">Conteúdo</a></nav></div></header>
 
     <section className="relative"><div className="pointer-events-none absolute inset-0 bg-grid opacity-30" /><div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-full max-w-[900px] -translate-x-1/2 rounded-full bg-[#f56b1b]/10 blur-[120px]" /><div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-14 md:px-8 md:py-24 lg:grid-cols-[1.12fr_.88fr] lg:items-center"><div><p className="inline-flex items-center gap-2 rounded-full border border-[#f56b1b]/30 bg-[#f56b1b]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#ffb17d]"><CircleDot className="h-3.5 w-3.5" /> RabbitMQ do zero • projeto prático</p><h1 className="mt-7 text-balance text-4xl font-extrabold leading-[1.03] tracking-[-0.05em] sm:text-5xl md:text-6xl">Aprenda RabbitMQ com .NET construindo um <span className="text-[#f56b1b]">e-commerce com mensageria</span></h1><p className="mt-7 max-w-3xl text-base leading-8 text-slate-300 md:text-xl">Comece pelos fundamentos e avance para processamento de pedidos, reserva de estoque, pagamentos, tratamento de falhas e monitoramento — com exemplos práticos em C# e .NET.</p><div className="mt-7 grid gap-3 text-sm text-slate-200 sm:grid-cols-2">{["Do zero em RabbitMQ", "Prática com C# e .NET", "Projeto completo de e-commerce", "Até 9x no cartão"].map((item) => <div key={item} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-[#ff8a3d]" />{item}</div>)}</div><div className="mt-8 flex flex-col gap-3 sm:flex-row">{offerAvailable && <CheckoutButton href={checkoutUrl} label="Quero acessar o curso" />}<a href="#projeto" className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/15 bg-white/[0.04] px-6 py-4 text-sm font-bold transition hover:border-white/30 hover:bg-white/[0.08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Conhecer o projeto <ArrowDown className="ml-2 h-4 w-4" /></a></div><p className="mt-5 max-w-2xl text-sm leading-6 text-slate-400">Começa do zero em RabbitMQ. Para acompanhar a prática, é recomendado conhecer o básico de C# e .NET.</p></div><aside className="rounded-[28px] border border-[#f56b1b]/30 bg-[#0c1119] p-6 shadow-[0_30px_100px_rgba(0,0,0,.45)] md:p-8"><span className="inline-flex items-center gap-2 rounded-full bg-[#f56b1b]/10 px-3 py-1.5 text-xs font-bold text-[#ffb17d]"><Zap className="h-3.5 w-3.5" /> {rabbitMqOffer.badge}</span><p className="mt-7 text-sm text-slate-400">Curso RabbitMQ com .NET</p><strong className="mt-1 block text-5xl font-extrabold tracking-tight">{rabbitMqOffer.installmentLabel}</strong><p className="mt-2 text-sm text-slate-400">{rabbitMqOffer.paymentLabel}</p><div className="mt-7 space-y-3 border-y border-white/[0.07] py-5 text-sm text-slate-300"><p className="flex gap-3"><Layers3 className="mt-0.5 h-4 w-4 shrink-0 text-[#ff8a3d]" />{mainLessonCount} aulas na formação principal</p><p className="flex gap-3"><Code2 className="mt-0.5 h-4 w-4 shrink-0 text-[#ff8a3d]" />{projectLessonCount} aulas do projeto + 1 recado</p><p className="flex gap-3"><PackageCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#ff8a3d]" />Teoria, laboratórios e e-commerce prático</p></div>{offerAvailable && <CheckoutButton href={checkoutUrl} label="Quero acessar o curso" className="mt-6 w-full" />}<p className="mt-4 text-xs leading-5 text-slate-500">Você será direcionado ao checkout da oferta para revisar as condições disponíveis antes de concluir.</p></aside></div></section>
@@ -89,8 +110,50 @@ export function RabbitMqCourseLandingV2({ checkoutUrl, metaPixelId, youtubeVideo
 
     <section className="border-t border-white/[0.07] bg-[#0a0d13]"><div className="mx-auto max-w-4xl px-5 py-20 md:px-8 md:py-24"><SectionIntro eyebrow="Perguntas frequentes" title="Respostas confirmadas antes de entrar" description="As condições que ainda dependem de confirmação não são apresentadas como promessa." center /><div className="mt-10 space-y-3">{faq.map(([question, answer], index) => <TrackedAccordion key={question} title={question} pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} eventName={`faq_${index + 1}_open`} className="!rounded-2xl !border-white/10 !bg-white/[0.025] !p-5" titleClassName="!font-bold !text-white" contentClassName="!text-slate-400" iconClassName="!border-white/10 !bg-white/[0.04] !text-[#ff8a3d]"><p>{answer}</p></TrackedAccordion>)}</div></div></section>
 
-    <section className="border-t border-[#f56b1b]/20 bg-[#f56b1b]/[0.055]"><div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 px-5 py-16 text-center md:flex-row md:px-8 md:text-left"><div><p className="text-sm font-bold text-[#ff9a59]">RabbitMQ com .NET</p><h2 className="mt-2 text-3xl font-bold">Aprenda os fundamentos e acompanhe as mensagens em um projeto completo.</h2><p className="mt-3 text-slate-400">{rabbitMqOffer.installmentLabel} {rabbitMqOffer.paymentLabel}.</p></div>{offerAvailable && <CheckoutButton href={checkoutUrl} label="Quero acessar o curso" className="shrink-0" />}</div></section>
+    <section className="border-t border-white/[0.07] bg-[#080b10]">
+      <div className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+        <SectionIntro eyebrow="Carreira e repertório técnico" title="Mensageria muda a forma como você projeta e explica sistemas" description="RabbitMQ não garante vaga ou promoção. Mas mensageria é um assunto recorrente em conversas técnicas e processos seletivos para posições .NET mais experientes — e saber demonstrar decisões em um sistema real fortalece seu repertório." center />
+        <div className="mt-12 grid gap-5 lg:grid-cols-2">
+          <article className="rounded-[24px] border border-rose-300/15 bg-rose-300/[0.04] p-7 md:p-9">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-rose-200">Antes • sem mensageria</p>
+            <h3 className="mt-4 text-2xl font-bold">A arquitetura assíncrona ainda parece uma caixa-preta</h3>
+            <ul className="mt-6 space-y-4 text-sm leading-6 text-slate-400">{["Dificuldade para explicar filas, ACK, Retry e DLQ.", "Pouca clareza para decidir entre comunicação síncrona e assíncrona.", "Conhecimento limitado ao Producer e Consumer mais básicos.", "Menos segurança para discutir falhas e escalabilidade em entrevistas."].map((item) => <li key={item} className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-300" />{item}</li>)}</ul>
+          </article>
+          <article className="rounded-[24px] border border-emerald-300/20 bg-emerald-300/[0.05] p-7 md:p-9">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-200">Depois • com fundamentos e prática</p>
+            <h3 className="mt-4 text-2xl font-bold">Você consegue argumentar usando decisões de um projeto real</h3>
+            <ul className="mt-6 space-y-4 text-sm leading-6 text-slate-300">{["Explica roteamento, confirmações e recuperação de falhas.", "Relaciona conceitos a pedidos, estoque, pagamentos e notificações.", "Mostra como acompanhar filas com Prometheus e Grafana.", "Conversa sobre mensageria com mais contexto técnico."].map((item) => <li key={item} className="flex gap-3"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-300" />{item}</li>)}</ul>
+          </article>
+        </div>
+        <div className="mt-8 rounded-[24px] border border-[#f56b1b]/25 bg-[#f56b1b]/[0.07] p-7 text-center md:p-10">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff9a59]">Invista no seu futuro técnico</p>
+          <h3 className="mx-auto mt-4 max-w-4xl text-balance text-2xl font-bold md:text-4xl">Sistemas de grande escala usam mensageria todos os dias. Não deixe esse conhecimento faltar quando surgir uma oportunidade.</h3>
+          <p className="mx-auto mt-5 max-w-3xl leading-7 text-slate-400">Assim como IA, mensageria amplia as ferramentas que você pode usar para construir soluções e participar de discussões técnicas. O curso ajuda você a transformar os conceitos em prática, sem prometer emprego ou resultado profissional.</p>
+          {offerAvailable && <CheckoutButton href={checkoutUrl} className="mt-7" />}
+        </div>
+      </div>
+    </section>
+
+    <section className="border-t border-white/[0.07] bg-[#0a0d13]">
+      <div className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+        <SectionIntro eyebrow="Relatos de alunos" title="Quem estudou destaca a clareza e a aplicação prática" description="Depoimentos e imagens fornecidos e autorizados para publicação nesta página." center />
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {testimonials.map((testimonial) => <figure key={testimonial.name} className="rounded-[24px] border border-white/10 bg-white/[0.025] p-6 text-center"><Image src={testimonial.image} alt={`Foto de ${testimonial.name}`} width={180} height={180} sizes="112px" className="mx-auto h-28 w-28 rounded-full border-2 border-[#f56b1b]/35 object-cover" loading="lazy" /><figcaption><strong className="mt-5 block text-lg">{testimonial.name}</strong><blockquote className="mt-4 text-sm italic leading-7 text-slate-300">“{testimonial.text}”</blockquote></figcaption></figure>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="border-t border-white/[0.07] bg-[#07090d]">
+      <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+        <SectionIntro eyebrow="Compra segura e acesso confirmado" title="Entre com tranquilidade e estude no seu ritmo" description="Condições informadas para esta oferta do curso RabbitMQ com .NET." center />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[{ icon: LockKeyhole, title: "Compra segura", text: "Pagamento processado no ambiente da Hotmart." }, { icon: ShieldCheck, title: `${rabbitMqOffer.guaranteeDays} dias de garantia`, text: "Conheça o curso e solicite o cancelamento pela Hotmart dentro do prazo." }, { icon: Layers3, title: rabbitMqOffer.accessDurationLabel, text: rabbitMqOffer.updatesLabel }, { icon: PackageCheck, title: "Entrega por e-mail", text: rabbitMqOffer.deliveryLabel }].map(({ icon: Icon, title, text }) => <article key={title} className="rounded-2xl border border-white/10 bg-white/[0.025] p-6"><span className="grid h-11 w-11 place-items-center rounded-full bg-[#f56b1b]/10 text-[#ff8a3d]"><Icon className="h-5 w-5" /></span><h3 className="mt-5 font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{text}</p></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="border-t border-[#f56b1b]/20 bg-[#f56b1b]/[0.055]"><div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 px-5 py-16 text-center md:flex-row md:px-8 md:text-left"><div><p className="text-sm font-bold text-[#ff9a59]">Lançamento até {rabbitMqOffer.endsAtLabel}</p><h2 className="mt-2 text-3xl font-bold">Aprenda os fundamentos e acompanhe as mensagens em um projeto completo.</h2><p className="mt-3 text-slate-400"><s>{rabbitMqOffer.originalPriceLabel}</s> por {rabbitMqOffer.installmentLabel} {rabbitMqOffer.paymentLabel}.</p></div>{offerAvailable && <CheckoutButton href={checkoutUrl} className="shrink-0" />}</div></section>
     <footer className="border-t border-white/[0.07] bg-[#07090d]"><div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-slate-500 md:flex-row md:items-center md:justify-between md:px-8"><strong className="text-white">Plugando IA</strong><div className="flex flex-wrap gap-5"><Link href="/terms">Termos</Link><Link href="/privacy">Privacidade</Link><Link href="/cursos">Todos os cursos</Link></div></div></footer>
-    {offerAvailable && <MobileStickyCTA title="RabbitMQ com .NET" priceLabel={rabbitMqOffer.installmentLabel} href={checkoutUrl} label="Acessar curso" pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} value={price} currency="BRL" className="!border-white/10 !bg-[#080b10]/95" priceClassName="!text-[#ff8a3d]" buttonClassName="!min-h-11 !rounded-lg !bg-none !bg-[#f56b1b] !px-4 !text-white" hideGlow />}
+    {offerAvailable && <MobileStickyCTA title="RabbitMQ com .NET" priceLabel={rabbitMqOffer.installmentLabel} href={checkoutUrl} label="Dominar RabbitMQ" pageKey={pageKey} pagePath={pagePath} pageTitle={pageTitle} value={price} currency="BRL" className="!border-white/10 !bg-[#080b10]/95" priceClassName="!text-[#ff8a3d]" buttonClassName="!min-h-11 !rounded-lg !bg-none !bg-[#f56b1b] !px-4 !text-white" hideGlow />}
   </main>;
 }
