@@ -4,7 +4,7 @@ import { resolveSalesPageMetaPixelId } from "@/lib/salesPagePixel";
 
 export const metadata: Metadata = {
   title: "Cursos para construir produtos reais com tecnologia e IA | Plugando IA",
-  description: "Escolha sua próxima habilidade: Vibe Coding, IA Generativa, Arquitetura de Software, RabbitMQ ou SaaS. Projetos práticos e acesso vitalício.",
+  description: "Escolha sua próxima habilidade: Git e GitHub, Vibe Coding, IA Generativa, Arquitetura de Software, RabbitMQ ou SaaS. Projetos práticos e acesso vitalício.",
   alternates: { canonical: "/cursos" },
 };
 
