@@ -124,7 +124,7 @@ export const courseCatalog: CourseCatalogItem[] = [
     tags: ["Redis", ".NET", "Docker", "Cache Aside"],
     accent: "violet",
     price: 69.99,
-    installments: "Pagamento único",
+    installments: "12x de R$ 7,24",
     badge: "Lançamento",
     available: true,
   },

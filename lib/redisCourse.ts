@@ -3,6 +3,7 @@ export const redisCourse = {
   pagePath: "/curso-redis",
   name: "Redis com .NET — Do Zero ao Cache na Prática",
   price: 69.99,
+  installmentLabel: "12x de R$ 7,24",
   referencePrice: 197,
   checkoutUrl: process.env.NEXT_PUBLIC_REDIS_CHECKOUT_URL?.trim() ?? "",
   coverImage: process.env.NEXT_PUBLIC_REDIS_COURSE_COVER?.trim() ?? "",
