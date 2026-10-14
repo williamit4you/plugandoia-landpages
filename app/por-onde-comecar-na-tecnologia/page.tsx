@@ -3,6 +3,7 @@ import { ComecarTecnologiaLanding } from "@/components/course-sales/ComecarTecno
 import { resolveSalesPageMetaPixelId } from "@/lib/salesPagePixel";
 
 const PAGE_PATH = "/por-onde-comecar-na-tecnologia";
+const CHECKOUT_URL = "https://pay.hotmart.com/U108021035R";
 
 export const metadata: Metadata = {
   title: "Por Onde Começar na Tecnologia | Mini curso Plugando IA",
@@ -24,9 +25,8 @@ export default async function PorOndeComecarNaTecnologiaPage() {
     preferEnvFallback: true,
   });
   const price = Number(process.env.NEXT_PUBLIC_COMECAR_TECNOLOGIA_PRICE ?? 9.99);
-  const checkoutUrl = process.env.NEXT_PUBLIC_COMECAR_TECNOLOGIA_CHECKOUT_URL?.trim() ?? "";
   const teacherPhoto = process.env.NEXT_PUBLIC_COMECAR_TECNOLOGIA_TEACHER_PHOTO?.trim()
     || "/images/rabbitmq/willian-barata.png";
 
-  return <ComecarTecnologiaLanding price={price} checkoutUrl={checkoutUrl} teacherPhoto={teacherPhoto} metaPixelId={metaPixelId || undefined} />;
+  return <ComecarTecnologiaLanding price={price} checkoutUrl={CHECKOUT_URL} teacherPhoto={teacherPhoto} metaPixelId={metaPixelId || undefined} />;
 }
