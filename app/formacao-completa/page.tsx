@@ -5,12 +5,12 @@ import { resolveSalesPageMetaPixelId } from "@/lib/salesPagePixel";
 const pageKey = "formacao-completa";
 
 export const metadata: Metadata = {
-  title: "Formação Completa Plugando IA | 5 cursos com acesso vitalício",
-  description: "Vibe Coding, Arquitetura de Software, RabbitMQ com .NET, IA Generativa e SaaS com Antigravity por R$ 149,90, com acesso vitalício, futuras atualizações e garantia de 7 dias.",
+  title: "Formação Completa Plugando IA | 8 cursos com acesso vitalício",
+  description: "Oito cursos, incluindo Por Onde Começar na Tecnologia, Git e GitHub, Redis, Vibe Coding, Arquitetura, RabbitMQ, IA Generativa e SaaS, por R$ 149,90.",
   alternates: { canonical: "/formacao-completa" },
   openGraph: {
-    title: "Formação Completa Plugando IA — 5 cursos por R$ 149,90",
-    description: "Cinco cursos para aprender Vibe Coding, arquitetura, mensageria, IA Generativa e construção de SaaS.",
+    title: "Formação Completa Plugando IA — 8 cursos por R$ 149,90",
+    description: "Oito cursos para começar em tecnologia e aprender Git e GitHub, Redis, Vibe Coding, arquitetura, mensageria, IA Generativa e SaaS.",
     type: "website",
     locale: "pt_BR",
     url: "/formacao-completa",
