@@ -4,9 +4,11 @@ import {
   ArrowRight,
   BookOpen,
   BrainCircuit,
+  Compass,
   Check,
   CheckCircle2,
   Code2,
+  Database,
   Layers3,
   Network,
   GitBranch,
@@ -38,6 +40,16 @@ type CourseVisual = {
 };
 
 const visuals: Record<string, CourseVisual> = {
+  "por-onde-comecar-na-tecnologia": {
+    icon: Compass, shortName: "START", logo: "Por Onde Começar", label: "Para sair da dúvida com um plano claro",
+    promise: "Escolha sua primeira trilha e organize os próximos 30 dias de estudo.",
+    project: "Uma trilha inicial, um primeiro projeto pequeno e uma rotina que você consegue executar.",
+    audience: "Ideal para quem quer entrar em tecnologia, mas ainda se perde entre tantas áreas e ferramentas.",
+    highlights: ["5 aulas", "Cerca de 40 min", "Plano de 30 dias"],
+    cardClass: "border-emerald-200 bg-[#f6fffb] hover:border-emerald-400",
+    glowClass: "bg-[radial-gradient(circle_at_90%_0%,rgba(16,185,129,.18),transparent_35%),radial-gradient(circle_at_0%_100%,rgba(124,58,237,.12),transparent_28%)]",
+    logoClass: "bg-emerald-500 text-white", eyebrowClass: "text-emerald-700", buttonClass: "bg-emerald-600 text-white hover:bg-emerald-700",
+  },
   github: {
     icon: GitBranch, shortName: "GIT", logo: "Git e GitHub", label: "Para versionar e colaborar com segurança",
     promise: "Pare de decorar comandos e entenda o fluxo de Git e GitHub na prática.",
@@ -88,6 +100,16 @@ const visuals: Record<string, CourseVisual> = {
     glowClass: "bg-[radial-gradient(circle_at_90%_0%,rgba(249,115,22,.22),transparent_35%),radial-gradient(circle_at_0%_100%,rgba(17,24,39,.10),transparent_28%)]",
     logoClass: "bg-orange-500 text-white", eyebrowClass: "text-orange-700", buttonClass: "bg-orange-500 text-white hover:bg-orange-600",
   },
+  redis: {
+    icon: Database, shortName: "REDIS", logo: "Redis com .NET", label: "Para implementar cache em APIs reais",
+    promise: "Aprenda Redis com .NET e implemente cache em uma API ASP.NET Core.",
+    project: "API de catálogo com Cache Aside, expiração, invalidação, Redis Insight e tratamento de falhas.",
+    audience: "Ideal para desenvolvedores C#/.NET e backend que querem aplicar os fundamentos de cache.",
+    highlights: ["15 aulas", "Redis + .NET", "Docker e Insight"],
+    cardClass: "border-red-200 bg-[#fff8f8] hover:border-red-400",
+    glowClass: "bg-[radial-gradient(circle_at_90%_0%,rgba(220,38,38,.18),transparent_35%),radial-gradient(circle_at_0%_100%,rgba(124,58,237,.12),transparent_28%)]",
+    logoClass: "bg-red-600 text-white", eyebrowClass: "text-red-700", buttonClass: "bg-red-600 text-white hover:bg-red-700",
+  },
   "saas-antigravity": {
     icon: Rocket, shortName: "SaaS", logo: "SaaS com Antigravity", label: "Para transformar um projeto em produto",
     promise: "Construa um SaaS com login, trial, assinatura, pagamento, banco e deploy usando IA.",
@@ -112,7 +134,7 @@ function CourseLogo({ visual, compact = false }: { visual: CourseVisual; compact
 export function CoursesCatalogPage({ metaPixelId }: { metaPixelId?: string }) {
   const bundle = courseCatalog.find((course) => course.slug === "formacao-completa")!;
   const courses = courseCatalog.filter((course) => course.slug !== "formacao-completa");
-  const bundleCourses = courses.filter((course) => course.slug !== "github");
+  const bundleCourses = courses.filter((course) => !["github", "por-onde-comecar-na-tecnologia", "redis"].includes(course.slug));
   const regularPrice = bundle.regularPrice || courses.reduce((total, course) => total + (course.price || 0), 0);
   const saving = regularPrice - (bundle.price || 0);
   const savingPercentage = regularPrice ? Math.round((saving / regularPrice) * 100) : 0;
