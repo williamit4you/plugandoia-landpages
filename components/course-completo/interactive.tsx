@@ -337,7 +337,7 @@ export function MobileStickyCTA({
   trackInitiateCheckout = true,
 }: {
   title: string;
-  priceLabel: string;
+  priceLabel: ReactNode;
   href: string;
   label: string;
   pageKey: string;
