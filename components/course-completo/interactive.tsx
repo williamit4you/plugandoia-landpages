@@ -126,6 +126,8 @@ type TrackedCheckoutButtonProps = {
   eventData?: MetaPixelEventData;
   className?: string;
   hideGlow?: boolean;
+  /** Use only when the site controls the actual checkout start. */
+  trackInitiateCheckout?: boolean;
 };
 
 export function TrackedCheckoutButton({
@@ -141,20 +143,26 @@ export function TrackedCheckoutButton({
   eventData,
   className,
   hideGlow,
+  trackInitiateCheckout = true,
 }: TrackedCheckoutButtonProps) {
   async function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
     const trackedHref = buildTrackedHref(href, pageKey);
     const eventId = createSalesEventId("checkout");
-    initiateCheckout(eventData, eventId);
+    if (trackInitiateCheckout) {
+      initiateCheckout(eventData, eventId);
+    }
 
-    await Promise.all([
+    const events = [
       trackCustomEvent(pageKey, pagePath, pageTitle, customEvent, {
         buttonLabel: label,
         checkoutUrl: trackedHref,
       }),
-      trackSalesEvent({
+    ];
+
+    if (trackInitiateCheckout) {
+      events.push(trackSalesEvent({
         pageKey,
         pagePath,
         pageTitle,
@@ -168,8 +176,10 @@ export function TrackedCheckoutButton({
           eventName: "checkout_click",
           sourceEvent: customEvent,
         },
-      }),
-    ]);
+      }));
+    }
+
+    await Promise.all(events);
 
     window.setTimeout(() => {
       window.location.assign(trackedHref);
@@ -324,6 +334,7 @@ export function MobileStickyCTA({
   priceClassName,
   buttonClassName,
   hideGlow,
+  trackInitiateCheckout = true,
 }: {
   title: string;
   priceLabel: string;
@@ -339,6 +350,7 @@ export function MobileStickyCTA({
   priceClassName?: string;
   buttonClassName?: string;
   hideGlow?: boolean;
+  trackInitiateCheckout?: boolean;
 }) {
   return (
     <div
@@ -361,6 +373,7 @@ export function MobileStickyCTA({
             customEvent="mobile_sticky_cta_click"
             className={buttonClassName}
             hideGlow={hideGlow}
+            trackInitiateCheckout={trackInitiateCheckout}
             eventData={{
               content_name: title,
               content_category: "Curso",
