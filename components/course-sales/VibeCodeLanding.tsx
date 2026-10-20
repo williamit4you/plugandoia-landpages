@@ -1,8 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
-  ArrowDown, ArrowRight, Blocks, Bot, BrainCircuit, BriefcaseBusiness, Check, CheckCircle2,
+  ArrowDown, ArrowRight, BadgeCheck, Blocks, Bot, BrainCircuit, BriefcaseBusiness, Check, CheckCircle2,
   CircleDollarSign, CloudUpload, Code2, Database, FileCode2, GitBranch, Globe2, Laptop,
-  LayoutDashboard, Lightbulb, ListChecks, MessageSquareText, MousePointer2, Rocket,
+  LayoutDashboard, Lightbulb, ListChecks, LockKeyhole, Mail, MessageSquareText, MousePointer2, Rocket,
   ShieldCheck, Sparkles, Terminal, WandSparkles, Workflow,
 } from "lucide-react";
 import { MetaPixelScript } from "@/components/MetaPixelScript";
@@ -14,6 +15,8 @@ const PAGE_KEY = "vibecode";
 const PAGE_PATH = "/vibecode";
 const PAGE_TITLE = "Vibe Coding para Leigos | Crie Aplicações com IA";
 const PRICE = 79.9;
+const ORIGINAL_PRICE = 199;
+const INSTALLMENT_LABEL = "12 x de R$ 8,26*";
 const eventData = { content_name: "Vibe Coding para Leigos", content_category: "Curso", content_type: "product", value: PRICE, currency: "BRL" };
 
 const painPoints = [
@@ -40,9 +43,29 @@ const faq = [
   ["Vibe Coding pode ser usado para criar projetos para clientes?", "Pode. O método ajuda a transformar problemas reais em soluções digitais. Isso abre possibilidades de prestação de serviços, sem promessa de renda ou resultado financeiro."],
   ["Preciso pagar pelas ferramentas utilizadas?", "Algumas ferramentas podem oferecer planos gratuitos e pagos. Custos e limites podem mudar; você poderá escolher as opções adequadas ao seu projeto."],
   ["Vou aprender frontend e backend?", "Sim, de forma prática e progressiva. Você entenderá o papel de cada parte enquanto constrói a aplicação do curso."],
+  ["Por quanto tempo terei acesso?", "O acesso ao curso é vitalício e todas as atualizações futuras ficam incluídas."],
+  ["Como recebo o acesso?", "Após a aprovação do pagamento, o acesso é liberado e enviado por e-mail de forma imediata pela Hotmart. Verifique também sua caixa de spam."],
+  ["Como funciona o pagamento?", "A oferta é de R$ 79,90 à vista ou 12 x de R$ 8,26* no cartão. O pagamento é processado no ambiente seguro da Hotmart."],
+] as const;
+const testimonials = [
+  { name: "Alessandro", image: "/images/vibecode/depoimentos/alessandro.png", text: "Me surpreendi com a facilidade! Achei que seria muito complicado por nunca ter programado, mas consegui criar minha primeira aplicação já no primeiro dia. A explicação é muito fácil de acompanhar." },
+  { name: "Juliana", image: "/images/vibecode/depoimentos/juliana.png", text: "Eu tinha uma ideia de aplicativo há muito tempo, mas nunca soube por onde começar. Com o curso, finalmente consegui dar vida ao meu projeto usando Inteligência Artificial. Era algo que eu achava impossível!" },
+  { name: "Adalberto", image: "/images/vibecode/depoimentos/adalberto.png", text: "Comecei o curso sem saber programar. Depois de praticar o que aprendi, consegui desenvolver e vender um site para um comércio aqui da minha cidade. Foi minha primeira experiência ganhando dinheiro com desenvolvimento!" },
 ] as const;
 
 function money(value: number) { return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); }
+function OfferTrust() {
+  const items = [
+    { icon: BadgeCheck, title: "Conteúdo aprovado", text: "Método organizado do planejamento à publicação." },
+    { icon: LockKeyhole, title: "Compra segura", text: "Pagamento processado no ambiente da Hotmart." },
+    { icon: Mail, title: "Acesso imediato por e-mail", text: "Conteúdo liberado após a aprovação do pagamento." },
+    { icon: ShieldCheck, title: "Acesso vitalício", text: "Todas as atualizações futuras estão incluídas." },
+  ];
+  return <section className="border-b border-slate-200 bg-white"><div className="mx-auto max-w-7xl px-5 py-5 md:px-8"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{items.map(({ icon: Icon, title, text }) => <article key={title} className="flex gap-3 rounded-xl border border-slate-100 bg-[#fbfaf7] p-3"><Icon className="mt-0.5 h-5 w-5 shrink-0 text-violet-700" /><p className="text-xs leading-5 text-slate-600"><strong className="block text-sm text-[#171329]">{title}</strong>{text}</p></article>)}</div></div></section>;
+}
+function Testimonials() {
+  return <section className="border-b border-slate-200 bg-violet-50"><div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20"><SectionHeading eyebrow="Avaliações de alunos" title="Quem começou do zero conta como foi dar o primeiro passo." text="Relatos enviados por alunos sobre suas experiências com o curso." /><div className="mt-10 grid gap-5 md:grid-cols-3">{testimonials.map((testimonial) => <figure key={testimonial.name} className="rounded-3xl border border-violet-100 bg-white p-6 shadow-sm"><div className="flex items-center gap-4"><Image src={testimonial.image} alt={`Foto de ${testimonial.name}`} width={96} height={96} className="h-16 w-16 rounded-full border-2 border-violet-100 object-cover" /><figcaption><strong className="block text-lg text-[#171329]">{testimonial.name}</strong><span className="text-sm font-semibold text-violet-700">Aluno do Vibe Coding</span></figcaption></div><blockquote className="mt-6 text-sm leading-7 text-slate-600">“{testimonial.text}”</blockquote></figure>)}</div></div></section>;
+}
 function SectionHeading({ eyebrow, title, text, light = false }: { eyebrow: string; title: string; text?: string; light?: boolean }) {
   return <div className="max-w-3xl"><p className={`text-xs font-black uppercase tracking-[0.22em] ${light ? "text-lime-300" : "text-violet-700"}`}>{eyebrow}</p><h2 className={`mt-4 text-balance text-3xl font-black leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl ${light ? "text-white" : "text-[#171329]"}`}>{title}</h2>{text ? <p className={`mt-5 max-w-2xl text-lg leading-8 ${light ? "text-slate-300" : "text-slate-600"}`}>{text}</p> : null}</div>;
 }
@@ -60,11 +83,13 @@ export function VibeCodeLanding({ checkoutUrl, metaPixelId }: Props) {
     <SalesViewContentTracker pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} currency="BRL" value={PRICE} metadata={{ contentName: "Vibe Coding para Leigos", contentType: "course" }} />
     <SectionViewTracker selectorId="metodo" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="method_view" /><SectionViewTracker selectorId="oferta" pageKey={PAGE_KEY} pagePath={PAGE_PATH} pageTitle={PAGE_TITLE} eventName="offer_view" />
 
-    <div className="border-b border-violet-200 bg-violet-100 px-4 py-2.5 text-center text-xs font-bold text-violet-950 sm:text-sm">Novo curso • da ideia à aplicação com Inteligência Artificial</div>
+    <div className="border-b border-violet-200 bg-violet-100 px-4 py-2.5 text-center text-xs font-bold text-violet-950 sm:text-sm">Oferta por tempo limitado: de <s>{money(ORIGINAL_PRICE)}</s> por R$ 79,90 à vista ou {INSTALLMENT_LABEL} no cartão. *Confira as condições no checkout.</div>
+    <OfferTrust />
+    <Testimonials />
     <header className="border-b border-slate-200/80 bg-[#fbfaf7]/90 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8"><Link href="/cursos" className="flex items-center gap-2 text-lg font-black tracking-[-0.03em]"><span className="grid h-9 w-9 place-items-center rounded-xl bg-violet-700 text-white"><Sparkles className="h-4 w-4" /></span>Plugando IA</Link><a href="#oferta" className="rounded-lg border border-violet-200 px-4 py-2 text-sm font-bold text-violet-800 hover:bg-violet-50">Ver o curso</a></div></header>
 
     <section className="relative border-b border-slate-200/80"><div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(124,58,237,.14),transparent_28%),radial-gradient(circle_at_10%_80%,rgba(184,243,74,.22),transparent_25%)]" /><div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:py-24">
-      <div><p className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.15em] text-violet-700 shadow-sm"><WandSparkles className="h-3.5 w-3.5" /> Vibe Coding para Leigos</p><h1 className="mt-6 text-balance text-4xl font-black leading-[1.02] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-7xl">Você não precisa saber programar para <span className="text-violet-700">tirar sua ideia do papel.</span></h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">Aprenda a usar Inteligência Artificial para planejar, construir, testar e publicar aplicações reais — mesmo começando do zero.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"><Cta label="Quero criar meu primeiro projeto" /><a href="#como-funciona" className="inline-flex items-center justify-center px-5 py-4 text-sm font-bold text-slate-700">Entender como funciona <ArrowDown className="ml-2 h-4 w-4" /></a></div><div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-600">{["Curso completo", "Acesso online", "Projeto prático", money(PRICE)].map(item => <span key={item} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-violet-700" />{item}</span>)}</div><p className="mt-4 text-sm font-semibold text-violet-800">Comece mesmo sem experiência com programação.</p></div>
+      <div><p className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.15em] text-violet-700 shadow-sm"><WandSparkles className="h-3.5 w-3.5" /> Vibe Coding para Leigos</p><h1 className="mt-6 text-balance text-4xl font-black leading-[1.02] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-7xl">Você não precisa saber programar para <span className="text-violet-700">tirar sua ideia do papel.</span></h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">Aprenda a usar Inteligência Artificial para planejar, construir, testar e publicar aplicações reais — mesmo começando do zero.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"><Cta label="Quero criar meu primeiro projeto" /><a href="#como-funciona" className="inline-flex items-center justify-center px-5 py-4 text-sm font-bold text-slate-700">Entender como funciona <ArrowDown className="ml-2 h-4 w-4" /></a></div><div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-600">{["Curso completo", "Acesso vitalício", "Atualizações futuras incluídas", INSTALLMENT_LABEL].map(item => <span key={item} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-violet-700" />{item}</span>)}</div><p className="mt-4 text-sm font-semibold text-violet-800">Comece mesmo sem experiência com programação.</p></div>
       <div className="relative"><div className="absolute -inset-8 rounded-full bg-violet-300/25 blur-3xl" /><div className="relative rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_30px_90px_rgba(46,24,86,.18)] sm:p-6"><p className="mb-4 text-sm font-black text-violet-800">Conheça o Vibe Coding para Leigos</p><div className="aspect-video overflow-hidden rounded-2xl bg-[#171329]"><iframe className="h-full w-full" src="https://www.youtube.com/embed/4cvTTKpfQok" title="Vídeo de apresentação do curso Vibe Coding para Leigos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><a href="https://youtu.be/4cvTTKpfQok" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-violet-700 underline-offset-4 hover:underline">Assistir no YouTube <ArrowRight className="h-4 w-4" /></a></div></div>
     </div></section>
 
