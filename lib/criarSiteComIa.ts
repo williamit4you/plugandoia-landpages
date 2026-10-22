@@ -5,6 +5,5 @@ export const criarSiteComIaOffer = {
   price: 19.9,
   priceLabel: "R$ 19,90",
   checkoutUrl: "https://pay.hotmart.com/W107908356O?off=ab2ssrjy&checkoutMode=10",
-  // Nenhuma VSL real foi fornecida ainda; manter vazio impede um player quebrado em produção.
-  videoUrl: "",
+  videoUrl: "https://youtu.be/4cvTTKpfQok",
 } as const;
