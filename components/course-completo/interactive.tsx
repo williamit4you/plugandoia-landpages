@@ -17,7 +17,7 @@ function buildTrackedHref(baseHref: string, pageKey: string) {
   try {
     const destination = new URL(baseHref);
     const current = new URL(window.location.href);
-    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"];
+    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid", "campaign_id", "adset_id", "ad_id"];
 
     for (const key of keys) {
       const currentValue = current.searchParams.get(key);

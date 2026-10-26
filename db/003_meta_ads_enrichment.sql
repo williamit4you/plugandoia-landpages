@@ -1,0 +1,22 @@
+ALTER TABLE meta_adsets ADD COLUMN IF NOT EXISTS optimization_goal TEXT;
+ALTER TABLE meta_adsets ADD COLUMN IF NOT EXISTS targeting JSONB;
+ALTER TABLE meta_adsets ADD COLUMN IF NOT EXISTS budget_currency TEXT;
+ALTER TABLE meta_ads ADD COLUMN IF NOT EXISTS creative JSONB;
+ALTER TABLE meta_ads ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;
+ALTER TABLE meta_ads ADD COLUMN IF NOT EXISTS destination_url TEXT;
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS breakdown_key TEXT NOT NULL DEFAULT 'none';
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS breakdown JSONB NOT NULL DEFAULT '{}'::jsonb;
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS attribution_key TEXT NOT NULL DEFAULT 'account_default';
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS outbound_clicks NUMERIC(16,2);
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS link_ctr NUMERIC(14,4);
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS link_cpc NUMERIC(14,4);
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS outbound_ctr NUMERIC(14,4);
+ALTER TABLE meta_insights_daily ADD COLUMN IF NOT EXISTS outbound_cpc NUMERIC(14,4);
+ALTER TABLE meta_insights_daily DROP CONSTRAINT IF EXISTS meta_insights_daily_pkey;
+ALTER TABLE meta_insights_daily ADD PRIMARY KEY (account_id, object_id, level, insight_date, breakdown_key, attribution_key);
+CREATE UNIQUE INDEX IF NOT EXISTS meta_insights_daily_dimensions_idx
+  ON meta_insights_daily (account_id, object_id, level, insight_date, breakdown_key, attribution_key);
+CREATE INDEX IF NOT EXISTS meta_campaigns_account_idx ON meta_campaigns (account_id);
+CREATE INDEX IF NOT EXISTS meta_adsets_campaign_idx ON meta_adsets (campaign_id);
+CREATE INDEX IF NOT EXISTS meta_ads_adset_idx ON meta_ads (adset_id);
+CREATE INDEX IF NOT EXISTS meta_sync_executions_status_idx ON meta_sync_executions (account_id, started_at DESC);

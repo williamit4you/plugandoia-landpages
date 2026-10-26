@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       text(body.utmSource, 255), text(body.utmMedium, 255), text(body.utmCampaign, 255),
       text(body.utmTerm, 255), text(body.utmContent, 255), text(body.fbclid, 255), text(body.gclid, 255),
       text(body.checkoutUrl, 1500), text(body.currency, 20), number(body.value), text(body.orderId, 160),
-      JSON.stringify(metadata),
+      JSON.stringify(metadata), text(body.campaignId, 160), text(body.adsetId, 160), text(body.adId, 160),
     ];
 
     await db.query(
@@ -47,7 +47,8 @@ export async function POST(request: NextRequest) {
         id, page_key, page_path, page_title, event_type, session_id, visitor_id,
         referrer, landing_url, user_agent, ip_hash, device_type, browser, os,
         country, region, city, utm_source, utm_medium, utm_campaign, utm_term,
-        utm_content, fbclid, gclid, checkout_url, currency, value, order_id, metadata
+        utm_content, fbclid, gclid, checkout_url, currency, value, order_id, metadata,
+        campaign_id, adset_id, ad_id
       ) VALUES (${values.map((_, index) => `$${index + 1}`).join(", ")})`,
       values,
     );
