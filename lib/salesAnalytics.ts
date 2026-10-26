@@ -5,6 +5,8 @@ export const SALES_PAGE_EVENT_TYPES = {
   OUTBOUND_CLICK: "OUTBOUND_CLICK",
   LEAD: "LEAD",
   PURCHASE: "PURCHASE",
+  WEB_VITAL: "WEB_VITAL",
+  PAGE_QUALITY: "PAGE_QUALITY",
 } as const;
 
 export type SalesPageEventType = (typeof SALES_PAGE_EVENT_TYPES)[keyof typeof SALES_PAGE_EVENT_TYPES];
@@ -21,6 +23,7 @@ export type SalesPageTrackPayload = {
   value?: number;
   orderId?: string;
   eventId?: string;
+  journeyId?: string;
   metadata?: Record<string, unknown>;
 };
 
@@ -30,6 +33,7 @@ const COMMERCE_SESSION_STORAGE_KEY = "commerce_analytics_session_id";
 const COMMERCE_VISITOR_STORAGE_KEY = "commerce_analytics_visitor_id";
 const COMMERCE_SESSION_COOKIE = "commerce_session_id";
 const COMMERCE_VISITOR_COOKIE = "commerce_visitor_id";
+const JOURNEY_STORAGE_KEY = "analytics_journey_id";
 
 function safeWindow() {
   if (typeof window === "undefined") {
@@ -81,6 +85,25 @@ function randomId(prefix: string) {
 
 export function createSalesEventId(prefix = "lp") {
   return randomId(prefix);
+}
+
+/** Opaque, first-party identifier. It deliberately contains no person or campaign data. */
+export function getJourneyId() {
+  const win = safeWindow();
+  if (!win) return null;
+  try {
+    const current = win.sessionStorage.getItem(JOURNEY_STORAGE_KEY);
+    if (current) return current;
+    const created = randomId("jrny");
+    win.sessionStorage.setItem(JOURNEY_STORAGE_KEY, created);
+    return created;
+  } catch { return null; }
+}
+
+export function hasOptionalAnalyticsConsent() {
+  const win = safeWindow();
+  if (!win) return false;
+  try { return win.localStorage.getItem("analytics_consent") !== "denied"; } catch { return false; }
 }
 
 function readCookie(name: string) {
@@ -187,6 +210,7 @@ export async function trackSalesEvent(payload: SalesPageTrackPayload) {
     eventId: payload.eventId ?? createSalesEventId(payload.eventType.toLowerCase()),
     sessionId,
     visitorId: payload.visitorId ?? getSalesVisitorId(),
+    journeyId: payload.journeyId ?? getJourneyId(),
     fbp: readCookie("_fbp"),
     fbc: readCookie("_fbc"),
     ...getContextFromBrowser(),

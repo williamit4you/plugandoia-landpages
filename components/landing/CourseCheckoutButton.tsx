@@ -3,7 +3,7 @@
 import { MouseEvent } from "react";
 import { CTAButton } from "@/components/landing/cta-button";
 import { MetaPixelEventData, initiateCheckout } from "@/lib/metaPixel";
-import { createSalesEventId, SALES_PAGE_EVENT_TYPES, trackSalesEvent } from "@/lib/salesAnalytics";
+import { createSalesEventId, SALES_PAGE_EVENT_TYPES, getJourneyId, getSalesSessionId, getSalesVisitorId, trackSalesEvent } from "@/lib/salesAnalytics";
 
 type CourseCheckoutButtonProps = {
   href: string;
@@ -29,6 +29,21 @@ export function CourseCheckoutButton({
   async function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
+    let trackedHref = href;
+    try {
+      const destination = new URL(href);
+      const current = new URL(window.location.href);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "campaign_id", "adset_id", "ad_id"].forEach((key) => {
+        const value = current.searchParams.get(key);
+        if (value && !destination.searchParams.has(key)) destination.searchParams.set(key, value);
+      });
+      const sessionId = getSalesSessionId(), visitorId = getSalesVisitorId(), journeyId = getJourneyId();
+      if (sessionId) destination.searchParams.set("src", `lp_${sessionId}`);
+      if (visitorId) destination.searchParams.set("visitor_id", visitorId);
+      if (journeyId) destination.searchParams.set("journey_id", journeyId);
+      destination.searchParams.set("sck", pageKey);
+      trackedHref = destination.toString();
+    } catch { /* preserve original checkout address */ }
     // Checkout buttons send InitiateCheckout before leaving the site for Hotmart.
     const eventId = createSalesEventId("checkout");
     initiateCheckout(eventData, eventId);
@@ -37,7 +52,7 @@ export function CourseCheckoutButton({
       pagePath,
       eventType: SALES_PAGE_EVENT_TYPES.INITIATE_CHECKOUT,
       eventId,
-      checkoutUrl: href,
+      checkoutUrl: trackedHref,
       currency: typeof eventData?.currency === "string" ? eventData.currency : undefined,
       value: typeof eventData?.value === "number" ? eventData.value : undefined,
       metadata: {
@@ -46,7 +61,7 @@ export function CourseCheckoutButton({
     });
 
     window.setTimeout(() => {
-      window.location.assign(href);
+      window.location.assign(trackedHref);
     }, 150);
   }
 

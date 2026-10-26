@@ -3,7 +3,7 @@
 import { MouseEvent, ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { CTAButton } from "@/components/landing/cta-button";
 import { MetaPixelEventData, initiateCheckout } from "@/lib/metaPixel";
-import { createSalesEventId, SALES_PAGE_EVENT_TYPES, getSalesSessionId, getSalesVisitorId, trackSalesEvent } from "@/lib/salesAnalytics";
+import { createSalesEventId, SALES_PAGE_EVENT_TYPES, getJourneyId, getSalesSessionId, getSalesVisitorId, trackSalesEvent } from "@/lib/salesAnalytics";
 
 function pad(value: number) {
   return String(Math.max(0, value)).padStart(2, "0");
@@ -30,6 +30,8 @@ function buildTrackedHref(baseHref: string, pageKey: string) {
     const visitorId = getSalesVisitorId();
     if (sessionId) destination.searchParams.set("src", `lp_${sessionId}`);
     if (visitorId) destination.searchParams.set("visitor_id", visitorId);
+    const journeyId = getJourneyId();
+    if (journeyId) destination.searchParams.set("journey_id", journeyId);
     destination.searchParams.set("sck", pageKey);
 
     return destination.toString();
