@@ -3,7 +3,7 @@ export const rateLimitingCourse = {
   pagePath: "/curso-rate-limiting",
   name: "Rate Limiting com ASP.NET Core — Proteja suas APIs na Prática",
   price: 19.99,
-  checkoutUrl: process.env.NEXT_PUBLIC_RATE_LIMITING_CHECKOUT_URL?.trim() ?? "",
+  checkoutUrl: "https://pay.hotmart.com/G108208458E",
   coverImage: process.env.NEXT_PUBLIC_RATE_LIMITING_COURSE_COVER?.trim() ?? "",
 } as const;
 

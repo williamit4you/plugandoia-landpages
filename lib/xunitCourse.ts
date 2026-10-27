@@ -4,7 +4,7 @@ export const xunitCourse = {
   name: "Testes Unitários com xUnit e .NET — Do Zero à Prática",
   price: 29.9,
   referencePrice: 79.9,
-  checkoutUrl: process.env.NEXT_PUBLIC_XUNIT_CHECKOUT_URL?.trim() ?? "",
+  checkoutUrl: "https://pay.hotmart.com/B108209235G",
   coverImage: process.env.NEXT_PUBLIC_XUNIT_COURSE_COVER?.trim() ?? "",
   campaignStatus: "launch" as const,
   campaignEndsAt: process.env.NEXT_PUBLIC_XUNIT_CAMPAIGN_ENDS_AT?.trim() ?? "",

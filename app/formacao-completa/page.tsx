@@ -5,12 +5,12 @@ import { resolveSalesPageMetaPixelId } from "@/lib/salesPagePixel";
 const pageKey = "formacao-completa";
 
 export const metadata: Metadata = {
-  title: "Formação Completa Plugando IA | 8 cursos com acesso vitalício",
-  description: "Oito cursos, incluindo Por Onde Começar na Tecnologia, Git e GitHub, Redis, Vibe Coding, Arquitetura, RabbitMQ, IA Generativa e SaaS, por R$ 149,90.",
+  title: "Formação Completa Plugando IA | 10 cursos com acesso vitalício",
+  description: "Dez cursos, incluindo Testes Unitários com xUnit, Rate Limiting, Redis, Git e GitHub, IA Generativa e SaaS, por R$ 149,90.",
   alternates: { canonical: "/formacao-completa" },
   openGraph: {
-    title: "Formação Completa Plugando IA — 8 cursos por R$ 149,90",
-    description: "Oito cursos para começar em tecnologia e aprender Git e GitHub, Redis, Vibe Coding, arquitetura, mensageria, IA Generativa e SaaS.",
+    title: "Formação Completa Plugando IA — 10 cursos por R$ 149,90",
+    description: "Dez cursos para começar em tecnologia e aprender testes, APIs, Git e GitHub, Redis, IA Generativa e SaaS.",
     type: "website",
     locale: "pt_BR",
     url: "/formacao-completa",
