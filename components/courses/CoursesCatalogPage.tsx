@@ -18,6 +18,7 @@ import {
   Sparkles,
   WandSparkles,
   Zap,
+  TestTube2,
 } from "lucide-react";
 import { MetaPixelScript } from "@/components/MetaPixelScript";
 import { SalesPageTracker } from "@/components/SalesPageTracker";
@@ -110,6 +111,26 @@ const visuals: Record<string, CourseVisual> = {
     glowClass: "bg-[radial-gradient(circle_at_90%_0%,rgba(220,38,38,.18),transparent_35%),radial-gradient(circle_at_0%_100%,rgba(124,58,237,.12),transparent_28%)]",
     logoClass: "bg-red-600 text-white", eyebrowClass: "text-red-700", buttonClass: "bg-red-600 text-white hover:bg-red-700",
   },
+  "rate-limiting": {
+    icon: ShieldCheck, shortName: "429", logo: "Rate Limiting", label: "Para controlar o tráfego das suas APIs",
+    promise: "Controle requisições e proteja suas APIs contra abusos.",
+    project: "Uma API ASP.NET Core com políticas por endpoint, respostas HTTP 429, filas e algoritmos de limitação.",
+    audience: "Ideal para desenvolvedores C#/.NET e backend que precisam controlar o tráfego de APIs REST.",
+    highlights: ["9 aulas", "ASP.NET Core", "4 algoritmos"],
+    cardClass: "border-emerald-200 bg-[#f6fffb] hover:border-emerald-400",
+    glowClass: "bg-[radial-gradient(circle_at_90%_0%,rgba(16,185,129,.18),transparent_35%),radial-gradient(circle_at_0%_100%,rgba(6,182,212,.12),transparent_28%)]",
+    logoClass: "bg-emerald-600 text-white", eyebrowClass: "text-emerald-700", buttonClass: "bg-emerald-600 text-white hover:bg-emerald-700",
+  },
+  "testes-unitarios-xunit": {
+    icon: TestTube2, shortName: "xUNIT", logo: "Testes Unitários", label: "Para verificar código com confiança",
+    promise: "Teste regras de negócio, isole dependências e ganhe confiança para evoluir seu código.",
+    project: "Projetos de testes com xUnit, cenários com Moq e análise de cobertura usando Coverlet e ReportGenerator.",
+    audience: "Ideal para desenvolvedores C#/.NET, backend e estudantes que já conhecem os fundamentos da linguagem.",
+    highlights: ["17 aulas identificadas", "4 módulos", "xUnit + Moq"],
+    cardClass: "border-cyan-200 bg-[#f6fdff] hover:border-cyan-400",
+    glowClass: "bg-[radial-gradient(circle_at_90%_0%,rgba(6,182,212,.18),transparent_35%),radial-gradient(circle_at_0%_100%,rgba(124,58,237,.12),transparent_28%)]",
+    logoClass: "bg-cyan-600 text-white", eyebrowClass: "text-cyan-700", buttonClass: "bg-cyan-600 text-white hover:bg-cyan-700",
+  },
   "saas-antigravity": {
     icon: Rocket, shortName: "SaaS", logo: "SaaS com Antigravity", label: "Para transformar um projeto em produto",
     promise: "Construa um SaaS com login, trial, assinatura, pagamento, banco e deploy usando IA.",
@@ -134,8 +155,9 @@ function CourseLogo({ visual, compact = false }: { visual: CourseVisual; compact
 export function CoursesCatalogPage({ metaPixelId }: { metaPixelId?: string }) {
   const bundle = courseCatalog.find((course) => course.slug === "formacao-completa")!;
   const courses = courseCatalog.filter((course) => course.slug !== "formacao-completa");
-  const bundleCourses = courses;
-  const regularPrice = bundle.regularPrice || courses.reduce((total, course) => total + (course.price || 0), 0);
+  // Rate Limiting é vendido somente de forma individual até nova decisão comercial.
+  const bundleCourses = courses.filter((course) => !["rate-limiting", "testes-unitarios-xunit"].includes(course.slug));
+  const regularPrice = bundle.regularPrice || bundleCourses.reduce((total, course) => total + (course.price || 0), 0);
   const saving = regularPrice - (bundle.price || 0);
   const savingPercentage = regularPrice ? Math.round((saving / regularPrice) * 100) : 0;
 
