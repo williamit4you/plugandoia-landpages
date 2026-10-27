@@ -134,7 +134,7 @@ export const courseCatalog: CourseCatalogItem[] = [
     eyebrow: "Qualidade de código com .NET",
     title: "Testes Unitários com xUnit e .NET",
     description: "Aprenda xUnit, Moq, Coverlet e ReportGenerator para testar regras de negócio e analisar cobertura de código.",
-    outcome: "17 aulas identificadas • 4 módulos • xUnit + Moq",
+    outcome: "17 aulas • 4 módulos • xUnit + Moq",
     tags: ["xUnit", "Moq", "C#", "Cobertura de código"],
     accent: "cyan",
     price: 29.9,

@@ -126,7 +126,7 @@ const visuals: Record<string, CourseVisual> = {
     promise: "Teste regras de negócio, isole dependências e ganhe confiança para evoluir seu código.",
     project: "Projetos de testes com xUnit, cenários com Moq e análise de cobertura usando Coverlet e ReportGenerator.",
     audience: "Ideal para desenvolvedores C#/.NET, backend e estudantes que já conhecem os fundamentos da linguagem.",
-    highlights: ["17 aulas identificadas", "4 módulos", "xUnit + Moq"],
+    highlights: ["17 aulas", "4 módulos", "xUnit + Moq"],
     cardClass: "border-cyan-200 bg-[#f6fdff] hover:border-cyan-400",
     glowClass: "bg-[radial-gradient(circle_at_90%_0%,rgba(6,182,212,.18),transparent_35%),radial-gradient(circle_at_0%_100%,rgba(124,58,237,.12),transparent_28%)]",
     logoClass: "bg-cyan-600 text-white", eyebrowClass: "text-cyan-700", buttonClass: "bg-cyan-600 text-white hover:bg-cyan-700",
