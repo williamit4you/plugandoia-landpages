@@ -221,6 +221,12 @@ export function FacchiniModel2Landing() {
             >
               Modelo 2 (Clean)
             </Link>
+            <Link
+              href="/model-teste3"
+              className="px-3 py-1.5 rounded-full text-slate-600 hover:text-slate-900 transition"
+            >
+              Modelo 3 (Smart Builder)
+            </Link>
           </div>
 
           <button

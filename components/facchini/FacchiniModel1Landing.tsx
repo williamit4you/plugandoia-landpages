@@ -335,11 +335,20 @@ export function FacchiniModel1Landing() {
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30">
               <Sparkles className="w-3.5 h-3.5" />
-              Proposta de Página de Vendas • Modelo 1 (/model-teste1)
+              Modelo 1 (E-Commerce)
             </span>
-            <span className="hidden md:inline text-slate-400">
-              Catálogo E-Commerce B2B c/ Seleção Rápida, Carrinho & Formas de Pagamento
-            </span>
+            <a
+              href="/model-teste2"
+              className="px-2.5 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-slate-300 transition"
+            >
+              Ver Modelo 2 (Clean)
+            </a>
+            <a
+              href="/model-teste3"
+              className="px-2.5 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-slate-300 transition"
+            >
+              Ver Modelo 3 (Smart Builder)
+            </a>
           </div>
           <div className="flex items-center gap-4 text-[11px] font-medium">
             <span className="flex items-center gap-1 text-emerald-400">
